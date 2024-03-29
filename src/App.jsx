@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [url, seturl] = useState("");
+  const [isvalidurl, setisvalidurl] = useState(true)
   const [responseData, setresponseData] = useState([]);
 
   const Notification = () => toast("Copied to clipboard!", {
@@ -21,6 +22,12 @@ function App() {
     theme: "dark",
     transition: Bounce
     });
+
+
+    const validateUrl = (Url) => {
+      const Regex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/
+      return Regex.test(Url);
+    };
 
   const apiKey = "GdqQrAz90KzIy3LSZwtmFudeUSatzXBm6L5uvS4CU19vr";
   // const apiUrl = `https://www.shrtlnk.dev/api/v2/shorten?url=${encodeURIComponent(url)}&api_key=${apiKey}`;
@@ -47,6 +54,12 @@ function App() {
       console.log(err);
     }
   };
+
+  const HandleChange = (e) =>{
+
+  seturl(e.target.value);
+  setisvalidurl(validateUrl(e.target.value));
+  }
 
   const clipboard = new ClipboardJS(".cpybtn");
   clipboard.on("success", function (e) {
@@ -75,11 +88,12 @@ function App() {
             HandleClick();
         }}
               className="urlinput"
+              style={{borderBottomColor: isvalidurl ? 'ActiveBorder' : 'red'}}
               type="text"
               name="url"
               placeholder="Enter URL"
               value={url}
-              onChange={(e) => seturl(e.target.value)}
+              onChange={HandleChange}
             />
             <Button onClick={HandleClick} className="btn">
               Shorten URL
