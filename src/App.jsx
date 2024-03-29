@@ -2,38 +2,65 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import "./App.css";
 import { useState } from "react";
 import axios from "axios";
+import ClipboardJS from "clipboard";
+import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [url, seturl] = useState("");
   const [responseData, setresponseData] = useState([]);
 
+  const Notification = () => toast("Copied to clipboard!", {
+    position: "bottom-left",
+    autoClose: 4000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+    transition: Bounce
+    });
+
   const apiKey = "GdqQrAz90KzIy3LSZwtmFudeUSatzXBm6L5uvS4CU19vr";
   // const apiUrl = `https://www.shrtlnk.dev/api/v2/shorten?url=${encodeURIComponent(url)}&api_key=${apiKey}`;
-  const HandleClick =  async () => {
+  const HandleClick = async () => {
     try {
       await axios
-        .post(`https://shrtlnk.dev/api/v2/link`, { url: url }, {
-          headers : {
-            'api-key' : apiKey,
-            "Accept ": "application/json ",
-            
-            "Content-Type": "application/json",
-          },
-        })
+        .post(
+          `https://shrtlnk.dev/api/v2/link`,
+          { url: url },
+          {
+            headers: {
+              "api-key": apiKey,
+              "Accept ": "application/json ",
+
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((res) => {
           setresponseData(...responseData, res);
         })
         .catch((err) => console.error(err));
-
-        seturl("");
     } catch (err) {
       console.log(err);
     }
   };
-  
+
+  const clipboard = new ClipboardJS(".cpybtn");
+  clipboard.on("success", function (e) {
+    console.log(e);
+  });
+  clipboard.on("error", function (e) {
+    console.error(e);
+  });
   return (
     <>
       <Container>
+        <ToastContainer
+          
+        />
         <Row>
           <Col>
             <h1 className="text-center">URL Shortener</h1>
@@ -43,7 +70,10 @@ function App() {
           </Col>
 
           <div className="d-flex justify-content-center">
-            <input
+            <input onKeyDown={(e) => {
+        if (e.key === "Enter")
+            HandleClick();
+        }}
               className="urlinput"
               type="text"
               name="url"
@@ -56,11 +86,24 @@ function App() {
             </Button>
           </div>
 
-         { responseData.data?.shrtlnk && (
-           <h5 className="text-center mt-5" style={{ opacity: 0.7 }}>
-           Your Shourten URl is : <a href={responseData.data?.shrtlnk}> {responseData.data?.shrtlnk} </a>
-         </h5>)
-         }
+          {responseData.data?.shrtlnk && (
+            <div className="d-flex flex-column justify-content-center ">
+              <h5 className="text-center mt-5" style={{ opacity: 0.7 }}>
+                Your Shourten URl is :{" "}
+                <a id="data" href={responseData.data?.shrtlnk}>
+                  {" "}
+                  {responseData.data?.shrtlnk}{" "}
+                </a>
+              </h5>
+              <Button
+                data-clipboard-target="#data"
+                className=" cpybtn align-self-center "
+                onClick={Notification}
+              >
+                Copy To ClipBoard
+              </Button>
+            </div>
+          )}
         </Row>
       </Container>
     </>
