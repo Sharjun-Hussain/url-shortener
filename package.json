@@ -2,7 +2,7 @@
   "name": "url-shortner",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://sharjun-hussain.github.io/url-shortner/",
+  "homepage": "https://sharjun-hussain.github.io/url-shortener/",
   "type": "module",
   "scripts": {
     "dev": "vite",
