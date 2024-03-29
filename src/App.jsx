@@ -24,11 +24,13 @@ function App() {
           setresponseData(...responseData, res);
         })
         .catch((err) => console.error(err));
+
+        seturl("");
     } catch (err) {
       console.log(err);
     }
   };
-  console.log(responseData.data?.shrtlnk);
+  
   return (
     <>
       <Container>
@@ -56,7 +58,7 @@ function App() {
 
          { responseData.data?.shrtlnk && (
            <h5 className="text-center mt-5" style={{ opacity: 0.7 }}>
-           Your Shourten URl is : <a> {responseData.data?.shrtlnk} </a>
+           Your Shourten URl is : <a href={responseData.data?.shrtlnk}> {responseData.data?.shrtlnk} </a>
          </h5>)
          }
         </Row>
