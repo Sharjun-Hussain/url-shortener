@@ -16,7 +16,10 @@ function App() {
   const [isvalidurl, setisvalidurl] = useState(true);
   const [responseData, setresponseData] = useState([]);
   const [loading, setloading] = useState(false);
-
+  const [pageloading, setpageloading] = useState(false);
+  if (responseData.data?.shrtlnk) {
+    
+  }
   const Notification = () =>
     toast("Copied to clipboard!", {
       position: "bottom-left",
@@ -81,7 +84,7 @@ function App() {
   });
   return (
     <>
-      <Container fluid >
+      <Container fluid>
         <ToastContainer />
         <Row>
           <Col md={12} xs={12} className="d-flex justify-content-center mt-4">
@@ -148,21 +151,15 @@ function App() {
 
         <Row>
           <Col className="d-flex flex-column justify-content-center align-items-center">
-            <Button disabled={loading} onClick={HandleNext} className=" w-75  ">
-              {loading ? "Loading..." : "Shorten Another URL"}
+            <Button disabled={pageloading} onClick={HandleNext} className=" w-75  ">
+              {pageloading ? "Loading..." : "Shorten Another URL"}
             </Button>
           </Col>
         </Row>
-
-       
-         
-         
-      
       </Container>
       <Container fluid className="p-0 m-0">
-
-         <Row className="footer "> 
-         {/* <Col md={12} className="d-flex justify-content-center">
+        <Row className="footer ">
+          {/* <Col md={12} className="d-flex justify-content-center">
              <div className="SocialIconsWrapper d-flex justify-content-center gap-3 ">
               <a href="https://twitter.com/sharjun_hussain/">
                 <div className="Social">
@@ -187,7 +184,8 @@ function App() {
               </a>
             </div> 
           </Col> */}
-         <h6 className="ubuntu-regular ">Developed By : Sharjun Hussain </h6></Row>
+          <h6 className="ubuntu-regular ">Developed By : Sharjun Hussain </h6>
+        </Row>
       </Container>
     </>
   );
