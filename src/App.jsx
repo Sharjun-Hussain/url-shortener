@@ -72,7 +72,7 @@ function App() {
   };
 
   const HandleNext = () => {
-    setloading((prev) => !prev);
+    setpageloading((prev) => !prev);
     window.location.href = "/";
   };
   const clipboard = new ClipboardJS(".cpybtn");
