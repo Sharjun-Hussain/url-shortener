@@ -10,6 +10,7 @@ function App() {
   const [url, seturl] = useState("");
   const [isvalidurl, setisvalidurl] = useState(true)
   const [responseData, setresponseData] = useState([]);
+  const [loading, setloading] = useState(false)
 
   const Notification = () => toast("Copied to clipboard!", {
     position: "bottom-left",
