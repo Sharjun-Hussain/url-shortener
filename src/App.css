@@ -1,26 +1,42 @@
-body{
-  height: 100vh !important;
-  align-items: center !important;
-  display: flex;
-  justify-content: center !important;
+.container {
+  height: 100dvh !important;
   width: 100vw;
+  
 }
 
+.shortener {
+  border: 2px solid white;
 
-.urlinput{
-  width: 60%;
+  padding-bottom: 40px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-box-shadow: 0px 0px 51px 1px rgba(0, 0, 0, 0.9);
+  -moz-box-shadow: 0px 0px 51px 1px rgba(0, 0, 0, 0.9);
+  box-shadow: 0px 0px 51px 1px rgba(0, 0, 0, 0.9);
+}
+
+@media (min-width: 1024px) {
+  .shortener {
+    width: 900px !important;
+  }
+}
+.urlinput {
+  width: 70%;
   margin-top: 40px !important;
   outline: none;
   border: none;
+
   background-color: transparent;
+  padding: 5px;
   height: 40px;
+  border-bottom: 2px solid white;
   color: white;
-  border-bottom: 1px solid white;
 }
 
-
-.btn{
-  margin-top: 40px !important;
+/* .btn{
+  margin-top: 20px !important;
   background-color: black !important;
   border: none !important;
   outline: none !important;
@@ -29,4 +45,69 @@ body{
 
 .btn:hover{
   background-color: rgb(47, 47, 47) !important;
+} */
+
+.btn {
+  margin-top: 15px !important;
+  display: inline-block;
+  padding: 0.9rem 1.8rem;
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  border: 3px solid rgb(252, 70, 100) !important;
+  cursor: pointer;
+  position: relative;
+  background-color: transparent !important;
+  text-decoration: none;
+  overflow: hidden;
+  z-index: 1;
+  font-family: inherit;
+}
+
+.btn::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(252, 70, 100);
+  transform: translateX(-100%);
+  transition: all 0.3s;
+  z-index: -1;
+}
+
+.btn:hover::before {
+  transform: translateX(0);
+}
+
+a {
+  color: white !important;
+}
+
+.footer {
+  text-align: center;
+
+  position: absolute;
+  bottom: 0;
+  width: 100vw
+}
+
+.Social {
+  width: 50px;
+  height: 50px;
+  border: 1px solid white;
+  border-radius: 40px;
+  align-items: center;
+  justify-content: center;
+  place-items: center;
+  display: flex;
+  cursor: pointer;
+  transition: 0.3s;
+  margin: 4px;
+  padding: 2px;
+}
+
+.Social:hover {
+  filter: drop-shadow(0px 0px 5px #64ffda);
 }
